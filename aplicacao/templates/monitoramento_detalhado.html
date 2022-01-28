@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% block conteudo %}
+
+    <!-- display the table -->
+    {% render_table table %}         
+    
+    {% bootstrap_javascript jquery='full' %}
+    
+{% endblock conteudo %}
+
+{% block bscript %}
+<script>
+    $(function() {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 30
+    });
+    var t = document.getElementById('idtablepainel');
+    
+    //console.log(t)
+    if(t) {
+        Array.from(t.rows).forEach((tr, row_ind) => {
+            Array.from(tr.cells).forEach((cell, col_ind) => {
+                //console.log('Value at row/col [' + row_ind + ',' + col_ind + '] = ' + cell.textContent);
+                if(col_ind == 6 && cell.textContent == 'Erro'){
+                    //console.log(tr.cells[row_ind,8].textContent)
+                    toastr.error('Empresa: '+ tr.cells[row_ind,9].textContent
+                    + ' </br> '+'Data Emissão: '+  tr.cells[row_ind,3].textContent
+                    + ' </br> '+'Nota: '+ tr.cells[row_ind,4].textContent + ' Série: '+ tr.cells[row_ind,5].textContent)
+                }
+                
+            });
+        });
+    }
+
+    setTimeout(function() {
+        window.location.reload(1);
+      }, 60000); // 1 minuto
+
+    });
+
+    
+
+</script>
+
+{% endblock bscript %}
+
+
+
+

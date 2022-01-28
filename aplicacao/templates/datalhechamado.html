@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% block conteudo %}
+
+
+    <div class="col-md-12 col-sm-6">
+        <div class="card card-primary card-outline card-tabs">
+          <div class="card-header p-0 border-bottom-0">
+            <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Evento</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Histórico</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <div class="tab-content" id="custom-tabs-four-tabContent">
+              <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+                {% for dado in objevento %}
+              <div class="card card-default">
+
+              <div class="card-header">
+                <h3 class="card-title">Dados Básicos</h3>
+              </div>
+
+              <div class="card-body" style="display: block;">
+                  <div class="row">
+                      <div class="col-sm-1">
+                        <label for="idevento">Id</label>
+                        <input type="text" class="form-control" id="idevento" value=" {{ dado.id }}" disabled readonly>
+                      </div>
+                      <div class="col-md-2">
+                        <label for="dataemissaoevento">Data Emissão</label>
+                        <input type="text" class="form-control" id="dataemissaoevento" value=" {{ dado.Data_Emissao }}" disabled readonly>
+                      </div>
+                      <div class="col-sm-1">
+                        <label for="tipodocevento">Tipo Doc</label>
+                        <input type="text" class="form-control" id="tipodocevento" value=" {{ dado.Tipo_Doc_Fiscal }}" disabled readonly>
+                      </div>
+                      <div class="col-sm-2">
+                        <label for="numdocevento">Número Documento</label>
+                        <input type="text" class="form-control" id="numdocevento" value=" {{ dado.Num_Doc }}" disabled readonly>
+                      </div>
+                      <div class="col-sm-2">
+                        <label for="numdocevento">Série Documento</label>
+                        <input type="text" class="form-control" id="numdocevento" value=" {{ dado.Serie_Dov }}" disabled readonly>
+                      </div>
+                      <div class="col-sm-2">
+                        <label for="numdocevento">Status Documento</label>
+                        <input type="text" class="form-control" id="numdocevento" value=" {{ dado.Status_Doc }}" disabled readonly>
+                      </div>
+                      <div class="col-sm-2">
+                        <label for="numdocevento">Id Tabela Origem</label>
+                        <input type="text" class="form-control" id="numdocevento" value=" {{ dado.Id_Tab_Orig }}" disabled readonly>
+                      </div>
+                
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="idevento">Empresa</label>
+                     <input type="text" class="form-control" id="idevento" value=" {{ dado.Empresa_Orig }}" disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="dataemissaoevento">Contato</label>
+                      <input type="text" class="form-control" id="dataemissaoevento" value=" {{ dado.Contato_Orig }}" disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="dataemissaoevento">Telefone</label>
+                      <input type="text" class="form-control" id="dataemissaoevento" value=" {{ dado.Telefone_Orig }}" disabled readonly>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="dataemissaoevento">Celular</label>
+                      <input type="text" class="form-control" id="dataemissaoevento" value=" {{ dado.Celular_Orig }}" disabled readonly>
+                    </div>
+                  </div>
+              </div> 
+              </div>
+              
+              
+                {% endfor %}
+              <div class="card card-default">
+                <div class="card-header">
+                  <h3 class="card-title">Inserir Acompanhamento</h3>
+                </div>
+                <div class="card-body" style="display: block;">
+                  <form action="{% url 'atendchamado' pkchamado %}" method="POST" class="form" autocomplete="off" enctype="multipart/form-data">
+                      {% csrf_token %}
+            
+                      {{ form|crispy }}
+                      {% buttons %}
+                         <button type="submit" class="btn btn-primary">Salvar</button>
+                      {% endbuttons %}
+                  </form>
+                </div>
+              </div>    
+              </div>
+              <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+                 <!-- display the table -->
+                 {% render_table table %}   
+              </div>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+
+    
+
+          
+  
+    
+    {% bootstrap_javascript jquery='full' %}
+    
+{% endblock conteudo %}
+
+
